@@ -24,11 +24,13 @@ function Model(props: any) {
       const mouseY = state.mouse.y;
 
       // Interpolation linéaire (Lerp) pour un mouvement fluide
-      // La chaise pivote sur l'axe Y (gauche/droite) en suivant la souris
+      // Rotation Y (gauche/droite)
       ref.current.rotation.y = THREE.MathUtils.lerp(ref.current.rotation.y, mouseX * 0.5, 0.1);
       
-      // Légère inclinaison sur l'axe X (haut/bas)
-      ref.current.rotation.x = THREE.MathUtils.lerp(ref.current.rotation.x, -mouseY * 0.1, 0.1);
+      // Rotation X (haut/bas) - Ajout d'un offset (0.5) pour simuler une vue "du dessus" par défaut
+      // On incline la chaise vers l'avant pour voir l'assise
+      const initialTilt = 0.5; 
+      ref.current.rotation.x = THREE.MathUtils.lerp(ref.current.rotation.x, initialTilt - (mouseY * 0.2), 0.1);
     }
   });
 
@@ -37,10 +39,10 @@ function Model(props: any) {
 
 export default function ChairModel() {
   return (
-    <div className="w-full h-[500px] cursor-move">
+    <div className="w-full h-full min-h-[500px] cursor-move">
       <Canvas shadows dpr={[1, 2]} camera={{ fov: 45 }}>
-        {/* Stage gère l'éclairage et le centrage automatique. adjustCamera=1.4 dézoome légèrement pour tout voir */}
-        <Stage environment="city" intensity={0.5} adjustCamera={1.4}>
+        {/* adjustCamera: 1.3 pour zoomer un peu plus (plus la valeur est basse, plus on zoome) */}
+        <Stage environment="city" intensity={0.5} adjustCamera={1.3}>
           <Model />
         </Stage>
       </Canvas>
