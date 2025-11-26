@@ -14,7 +14,7 @@ declare global {
 
 function Model(props: any) {
   // Chargement du fichier depuis l'URL distante
-  const { scene } = useGLTF('https://serialmasseur.vercel.app/chaise-massage.glb');
+  const { scene } = useGLTF('https://raw.githubusercontent.com/Swyz974/asset/main/chaise-massage.glb');
   const ref = useRef<THREE.Group>(null);
 
   useFrame((state) => {
@@ -49,4 +49,4 @@ export default function ChairModel() {
 }
 
 // Préchargement du modèle pour éviter les délais
-useGLTF.preload('https://serialmasseur.vercel.app/chaise-massage.glb');
+useGLTF.preload('https://raw.githubusercontent.com/Swyz974/asset/main/chaise-massage.glb');
