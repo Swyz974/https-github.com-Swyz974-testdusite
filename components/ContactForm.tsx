@@ -1,14 +1,45 @@
 import React, { useState } from 'react';
-import { Send, Building2, User, Mail, Phone, MessageSquare, CheckCircle } from 'lucide-react';
+import { Send, Building2, User, MessageSquare, CheckCircle, Loader2 } from 'lucide-react';
 
 const ContactForm: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Ici, vous pourriez ajouter la logique d'envoi vers un backend ou un service comme EmailJS
-    setSubmitted(true);
-    window.scrollTo(0, 0);
+    setIsSubmitting(true);
+    setErrorMessage(null);
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch("https://formspree.io/f/xkgadlra", {
+        method: "POST",
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+        window.scrollTo(0, 0);
+        form.reset();
+      } else {
+        const data = await response.json();
+        if (data.errors) {
+          setErrorMessage(data.errors.map((err: any) => err.message).join(", "));
+        } else {
+          setErrorMessage("Une erreur s'est produite lors de l'envoi. Veuillez réessayer.");
+        }
+      }
+    } catch (error) {
+      setErrorMessage("Impossible de contacter le serveur. Vérifiez votre connexion.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (submitted) {
@@ -55,17 +86,37 @@ const ContactForm: React.FC = () => {
                 
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-petrole-700 mb-1">Nom complet *</label>
-                  <input required type="text" id="name" className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-corail-500 focus:border-transparent outline-none transition-all" placeholder="Jean Dupont" />
+                  <input 
+                    required 
+                    type="text" 
+                    id="name" 
+                    name="name"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-corail-500 focus:border-transparent outline-none transition-all" 
+                    placeholder="Jean Dupont" 
+                  />
                 </div>
 
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-petrole-700 mb-1">Email professionnel *</label>
-                  <input required type="email" id="email" className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-corail-500 focus:border-transparent outline-none transition-all" placeholder="jean@entreprise.com" />
+                  <input 
+                    required 
+                    type="email" 
+                    id="email" 
+                    name="email"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-corail-500 focus:border-transparent outline-none transition-all" 
+                    placeholder="jean@entreprise.com" 
+                  />
                 </div>
 
                 <div>
                   <label htmlFor="phone" className="block text-sm font-medium text-petrole-700 mb-1">Téléphone</label>
-                  <input type="tel" id="phone" className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-corail-500 focus:border-transparent outline-none transition-all" placeholder="06 12 34 56 78" />
+                  <input 
+                    type="tel" 
+                    id="phone" 
+                    name="phone"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-corail-500 focus:border-transparent outline-none transition-all" 
+                    placeholder="06 12 34 56 78" 
+                  />
                 </div>
               </div>
 
@@ -78,12 +129,22 @@ const ContactForm: React.FC = () => {
 
                 <div>
                   <label htmlFor="company" className="block text-sm font-medium text-petrole-700 mb-1">Nom de l'entreprise</label>
-                  <input type="text" id="company" className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-corail-500 focus:border-transparent outline-none transition-all" placeholder="Ma Société" />
+                  <input 
+                    type="text" 
+                    id="company" 
+                    name="company"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-corail-500 focus:border-transparent outline-none transition-all" 
+                    placeholder="Ma Société" 
+                  />
                 </div>
 
                 <div>
                   <label htmlFor="employees" className="block text-sm font-medium text-petrole-700 mb-1">Nombre de collaborateurs à masser (est.)</label>
-                  <select id="employees" className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-corail-500 focus:border-transparent outline-none transition-all bg-white">
+                  <select 
+                    id="employees" 
+                    name="employees"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-corail-500 focus:border-transparent outline-none transition-all bg-white"
+                  >
                     <option value="">Sélectionnez une option</option>
                     <option value="1-5">1 à 5 personnes</option>
                     <option value="5-10">5 à 10 personnes</option>
@@ -104,14 +165,40 @@ const ContactForm: React.FC = () => {
               
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-petrole-700 mb-1">Message ou précisions *</label>
-                <textarea required id="message" rows={4} className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-corail-500 focus:border-transparent outline-none transition-all" placeholder="Bonjour, nous souhaiterions organiser une session de bien-être pour nos équipes..."></textarea>
+                <textarea 
+                  required 
+                  id="message" 
+                  name="message"
+                  rows={4} 
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-corail-500 focus:border-transparent outline-none transition-all" 
+                  placeholder="Bonjour, nous souhaiterions organiser une session de bien-être pour nos équipes..."
+                ></textarea>
               </div>
             </div>
 
+            {errorMessage && (
+              <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg text-sm">
+                {errorMessage}
+              </div>
+            )}
+
             <div className="pt-4">
-              <button type="submit" className="w-full md:w-auto bg-corail-500 hover:bg-corail-600 text-white font-bold py-4 px-8 rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 flex items-center justify-center md:justify-start gap-3">
-                <Send className="w-5 h-5" />
-                Envoyer ma demande
+              <button 
+                type="submit" 
+                disabled={isSubmitting}
+                className="w-full md:w-auto bg-corail-500 hover:bg-corail-600 text-white font-bold py-4 px-8 rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 flex items-center justify-center md:justify-start gap-3 disabled:opacity-70 disabled:cursor-not-allowed"
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    Envoi en cours...
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-5 h-5" />
+                    Envoyer ma demande
+                  </>
+                )}
               </button>
               <p className="mt-4 text-sm text-gray-500 text-center md:text-left">
                 * Champs obligatoires. Vos données restent confidentielles.
