@@ -5,6 +5,7 @@ import AnatomySection from './components/AnatomySection';
 import Methodology from './components/Methodology';
 import IndividualSection from './components/IndividualSection';
 import ContactForm from './components/ContactForm';
+import LegalMentions from './components/LegalMentions';
 import Footer from './components/Footer';
 import { ViewMode } from './types';
 
@@ -19,6 +20,8 @@ const App: React.FC = () => {
       
       if (path === '/contact') {
         setViewMode('contact');
+      } else if (path === '/mentions-legales') {
+        setViewMode('legal');
       } else if (params.get('view') === 'particulier') {
         setViewMode('individual');
       } else {
@@ -43,6 +46,8 @@ const App: React.FC = () => {
       newUrl = '/?view=particulier';
     } else if (mode === 'contact') {
       newUrl = '/contact';
+    } else if (mode === 'legal') {
+      newUrl = '/mentions-legales';
     }
 
     window.history.pushState({}, '', newUrl);
@@ -55,6 +60,8 @@ const App: React.FC = () => {
       <main>
         {viewMode === 'contact' ? (
           <ContactForm />
+        ) : viewMode === 'legal' ? (
+          <LegalMentions />
         ) : viewMode === 'enterprise' ? (
           <>
             <Hero onNavigateContact={() => handleSwitchMode('contact')} />
@@ -66,7 +73,10 @@ const App: React.FC = () => {
         )}
       </main>
       
-      <Footer onNavigateContact={() => handleSwitchMode('contact')} />
+      <Footer 
+        onNavigateContact={() => handleSwitchMode('contact')} 
+        onNavigateLegal={() => handleSwitchMode('legal')}
+      />
     </div>
   );
 };
