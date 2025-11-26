@@ -3,15 +3,6 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { useGLTF, Stage } from '@react-three/drei';
 import * as THREE from 'three';
 
-// Fix for TypeScript error: Property 'primitive' does not exist on type 'JSX.IntrinsicElements'
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      primitive: any;
-    }
-  }
-}
-
 function Model(props: any) {
   // Chargement du fichier depuis l'URL distante
   const { scene } = useGLTF('https://raw.githubusercontent.com/Swyz974/asset/main/chaise-massage.glb');
@@ -34,6 +25,7 @@ function Model(props: any) {
     }
   });
 
+  // @ts-ignore
   return <primitive object={scene} ref={ref} {...props} />;
 }
 

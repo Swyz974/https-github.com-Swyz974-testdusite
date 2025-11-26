@@ -1,7 +1,11 @@
 import React from 'react';
 import { Mail, Phone, MapPin } from 'lucide-react';
 
-const Footer: React.FC = () => {
+interface FooterProps {
+  onNavigateContact?: () => void;
+}
+
+const Footer: React.FC<FooterProps> = ({ onNavigateContact }) => {
   return (
     <footer id="contact" className="bg-petrole-900 text-sable-100 border-t border-petrole-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -16,9 +20,18 @@ const Footer: React.FC = () => {
               Spécialiste du massage assis en entreprise sur la métropole Lilloise.
               Reposez en paix, au travail.
             </p>
-            <button className="bg-corail-500 hover:bg-corail-600 text-white font-bold py-3 px-6 rounded-lg transition-colors">
+            <a 
+              href="/contact"
+              onClick={(e) => {
+                if(onNavigateContact) {
+                   e.preventDefault();
+                   onNavigateContact();
+                }
+              }}
+              className="inline-block bg-corail-500 hover:bg-corail-600 text-white font-bold py-3 px-6 rounded-lg transition-colors"
+            >
               Contacter maintenant
-            </button>
+            </a>
           </div>
 
           {/* Contact Info */}

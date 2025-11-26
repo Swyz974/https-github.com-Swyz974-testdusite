@@ -1,7 +1,11 @@
 import React from 'react';
 import { ChevronRight } from 'lucide-react';
 
-const Hero: React.FC = () => {
+interface HeroProps {
+  onNavigateContact: () => void;
+}
+
+const Hero: React.FC<HeroProps> = ({ onNavigateContact }) => {
   return (
     <section id="concept" className="relative pt-24 pb-12 md:pt-32 md:pb-24 overflow-hidden bg-gradient-to-br from-sarcelle-50 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -53,7 +57,11 @@ const Hero: React.FC = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <a href="#contact" className="bg-petrole-700 hover:bg-petrole-800 text-white px-8 py-4 rounded-lg font-semibold transition-all shadow-lg hover:shadow-petrole-200/50 flex items-center justify-center">
+              <a 
+                href="/contact" 
+                onClick={(e) => { e.preventDefault(); onNavigateContact(); }}
+                className="bg-petrole-700 hover:bg-petrole-800 text-white px-8 py-4 rounded-lg font-semibold transition-all shadow-lg hover:shadow-petrole-200/50 flex items-center justify-center"
+              >
                 Demander un devis
                 <ChevronRight className="ml-2 w-5 h-5" />
               </a>
