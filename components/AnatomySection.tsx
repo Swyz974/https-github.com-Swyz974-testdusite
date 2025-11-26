@@ -1,6 +1,7 @@
-import React from 'react';
-import { ArrowDown, CheckCircle2 } from 'lucide-react';
+import React, { Suspense } from 'react';
+import { ArrowDown, CheckCircle2, Loader2 } from 'lucide-react';
 import { BodyPart } from '../types';
+import ChairModel from './ChairModel';
 
 const AnatomySection: React.FC = () => {
   const bodyParts = [
@@ -27,7 +28,7 @@ const AnatomySection: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           
           {/* Explanation */}
-          <div className="space-y-8" id="delestage">
+          <div className="space-y-8 order-2 md:order-1" id="delestage">
             <div className="bg-petrole-800/50 p-8 rounded-2xl border border-petrole-700 backdrop-blur-sm">
               <h3 className="text-2xl font-bold text-corail-400 mb-4 flex items-center">
                 <ArrowDown className="mr-3" />
@@ -52,19 +53,21 @@ const AnatomySection: React.FC = () => {
             </div>
           </div>
 
-          {/* Visual representation - Chair Image */}
-          <div className="relative h-full min-h-[400px] flex items-center justify-center">
-             <div className="relative w-full max-w-md">
-                <div className="absolute inset-0 bg-gradient-to-tr from-corail-500/10 to-sarcelle-500/10 rounded-full blur-3xl transform scale-110"></div>
-                <img 
-                  src="https://69233b7bb1e1e30f943817cf--endearing-melba-13c953.netlify.app/chaise_ergonomique.png" 
-                  alt="Chaise ergonomique Serial Masseur"
-                  className="w-full h-auto object-contain drop-shadow-2xl relative z-10 opacity-90"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.style.display = 'none'; // Hide broken image icon
-                  }}
-                />
+          {/* Visual representation - 3D Model */}
+          <div className="relative h-full min-h-[500px] flex items-center justify-center order-1 md:order-2">
+             <div className="relative w-full h-full">
+                {/* Background Glow */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-corail-500/10 to-sarcelle-500/10 rounded-full blur-3xl transform scale-75 pointer-events-none"></div>
+                
+                {/* 3D Component with Fallback */}
+                <Suspense fallback={
+                  <div className="flex flex-col items-center justify-center h-full text-sarcelle-200">
+                    <Loader2 className="w-10 h-10 animate-spin mb-4" />
+                    <p>Chargement du modèle 3D...</p>
+                  </div>
+                }>
+                  <ChairModel />
+                </Suspense>
              </div>
           </div>
         </div>
