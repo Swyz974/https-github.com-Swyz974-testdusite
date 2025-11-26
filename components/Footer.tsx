@@ -3,10 +3,9 @@ import { Mail, Phone, MapPin } from 'lucide-react';
 
 interface FooterProps {
   onNavigateContact?: () => void;
-  onNavigateLegal?: () => void;
 }
 
-const Footer: React.FC<FooterProps> = ({ onNavigateContact, onNavigateLegal }) => {
+const Footer: React.FC<FooterProps> = ({ onNavigateContact }) => {
   return (
     <footer id="contact" className="bg-petrole-900 text-sable-100 border-t border-petrole-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -66,22 +65,8 @@ const Footer: React.FC<FooterProps> = ({ onNavigateContact, onNavigateLegal }) =
           </div>
         </div>
 
-        <div className="border-t border-petrole-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center text-petrole-400 text-sm">
+        <div className="border-t border-petrole-800 mt-12 pt-8 text-center text-petrole-400 text-sm">
           <p>&copy; {new Date().getFullYear()} Serial Masseur. Tous droits réservés.</p>
-          <div className="mt-4 md:mt-0">
-            <a 
-              href="/mentions-legales"
-              onClick={(e) => {
-                if(onNavigateLegal) {
-                  e.preventDefault();
-                  onNavigateLegal();
-                }
-              }}
-              className="hover:text-corail-500 transition-colors"
-            >
-              Mentions Légales
-            </a>
-          </div>
         </div>
       </div>
     </footer>

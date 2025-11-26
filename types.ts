@@ -14,4 +14,4 @@ export interface ServiceFeature {
   icon: React.ReactNode;
 }
 
-export type ViewMode = 'enterprise' | 'individual' | 'contact' | 'quote' | 'legal';
+export type ViewMode = 'enterprise' | 'individual' | 'contact';
