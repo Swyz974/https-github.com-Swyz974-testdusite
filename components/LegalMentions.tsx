@@ -31,8 +31,8 @@ const LegalMentions: React.FC = () => {
               <strong>Email :</strong> contact@serialmasseur.fr<br />
               <strong>Téléphone :</strong> 06 03 26 78 35<br />
               {/* Vous devrez compléter ces infos plus tard */}
-              <strong>SIRET :</strong> [Numéro SIRET à compléter]<br />
-              <strong>Directeur de la publication :</strong> [Votre Nom]
+              <strong>SIRET :</strong> 910 130 749 00013<br />
+              <strong>Directeur de la publication :</strong> Samuel Sadon
             </p>
           </section>
 

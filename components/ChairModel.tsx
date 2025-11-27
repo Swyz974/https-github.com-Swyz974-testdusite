@@ -34,7 +34,7 @@ export default function ChairModel() {
     <div className="w-full h-full min-h-[500px] cursor-move">
       <Canvas shadows dpr={[1, 2]} camera={{ fov: 45 }}>
         {/* adjustCamera: 1.3 pour zoomer un peu plus (plus la valeur est basse, plus on zoome) */}
-        <Stage environment="city" intensity={0.5} adjustCamera={1.3}>
+        <Stage environment="city" intensity={0.5} adjustCamera={0.9}>
           <Model />
         </Stage>
       </Canvas>
