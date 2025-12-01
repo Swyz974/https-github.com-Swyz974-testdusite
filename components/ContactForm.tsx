@@ -15,12 +15,13 @@ const ContactForm: React.FC = () => {
     const formData = new FormData(form);
 
     try {
-      const response = await fetch("https://formspree.io/f/xkgadlra", {
+      const response = await fetch("https://submit-form.com/rN8BsvwYM", {
         method: "POST",
-        body: formData,
         headers: {
+          'Content-Type': 'application/json',
           'Accept': 'application/json'
-        }
+        },
+        body: JSON.stringify(Object.fromEntries(formData))
       });
 
       if (response.ok) {
