@@ -3,9 +3,12 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { useGLTF, Stage } from '@react-three/drei';
 import * as THREE from 'three';
 
+// Définition de l'URL en constante pour s'assurer que le preload et le hook utilisent la même source
+const MODEL_URL = 'https://raw.githubusercontent.com/Swyz974/serialmasseur/main/public/chaise-massage-amma-assi-allégé.glb';
+
 function Model(props: any) {
   // Chargement du fichier depuis l'URL distante
-  const { scene } = useGLTF('https://raw.githubusercontent.com/Swyz974/serialmasseur/main/public/chaise-massage-amma-assi-allégé.glb');
+  const { scene } = useGLTF(MODEL_URL);
   const ref = useRef<THREE.Group>(null);
 
   useFrame((state) => {
@@ -43,4 +46,4 @@ export default function ChairModel() {
 }
 
 // Préchargement du modèle pour éviter les délais
-useGLTF.preload('https://raw.githubusercontent.com/Swyz974/asset/main/chaise-massage.glb');
+useGLTF.preload(MODEL_URL);
