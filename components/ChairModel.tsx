@@ -4,7 +4,7 @@ import { useGLTF, Stage } from '@react-three/drei';
 import * as THREE from 'three';
 
 // Définition de l'URL en constante pour s'assurer que le preload et le hook utilisent la même source
-const MODEL_URL = 'https://raw.githubusercontent.com/Swyz974/serialmasseur/main/public/chaise-massage-amma-assi.glb';
+const MODEL_URL = 'https://raw.githubusercontent.com/Swyz974/asset/main/chaise-massage-amma-assi.glb';
 
 function Model(props: any) {
   // Chargement du fichier depuis l'URL distante
