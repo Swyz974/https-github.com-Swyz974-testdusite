@@ -73,9 +73,8 @@ const Footer: React.FC<FooterProps> = ({ onNavigateContact, onNavigateLegal }) =
                onClick={() => onNavigateLegal && onNavigateLegal()} 
                className="hover:text-corail-500 transition-colors"
              >
-               Mentions légales
+               Mentions Légales & Confidentialité
              </button>
-             <a href="#" className="hover:text-corail-500 transition-colors">Politique de confidentialité</a>
           </div>
         </div>
       </div>

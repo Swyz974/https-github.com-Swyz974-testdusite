@@ -5,7 +5,7 @@ import * as THREE from 'three';
 
 function Model(props: any) {
   // Chargement du fichier depuis l'URL distante
-  const { scene } = useGLTF('https://raw.githubusercontent.com/Swyz974/asset/main/chaise-massage.glb');
+  const { scene } = useGLTF('https://raw.githubusercontent.com/Swyz974/serialmasseur/main/public/chaise-massage-amma-assi-allégé.glb');
   const ref = useRef<THREE.Group>(null);
 
   useFrame((state) => {

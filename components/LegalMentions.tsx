@@ -17,7 +17,7 @@ const LegalMentions: React.FC = () => {
           </a>
         </div>
 
-        <h1 className="text-3xl md:text-4xl font-bold text-petrole-800 mb-10">Mentions Légales</h1>
+        <h1 className="text-3xl md:text-4xl font-bold text-petrole-800 mb-10">Mentions Légales & Confidentialité</h1>
 
         <div className="space-y-10 text-petrole-700 leading-relaxed">
           
@@ -71,6 +71,24 @@ const LegalMentions: React.FC = () => {
             <p>
               Ce site utilise peu ou pas de cookies. D'éventuels cookies techniques peuvent être utilisés pour le bon fonctionnement de la navigation (notamment pour retenir votre choix entre la vue "Entreprise" et "Particulier").
               Aucune donnée n'est revendue à des tiers.
+            </p>
+          </section>
+
+          <section className="bg-sarcelle-50 p-6 rounded-xl border border-sarcelle-100">
+            <h2 className="text-xl font-bold text-petrole-800 mb-4">6. Traitement des formulaires de contact (Sous-traitant)</h2>
+            <p className="mb-4">
+              Les données transmises via le formulaire de contact sont traitées techniquement par la solution <strong>Formspark</strong>, éditée par la société <strong>Byteboomers SRL</strong>, basée en Belgique (Union Européenne).
+            </p>
+            <ul className="list-disc pl-5 space-y-2 mb-4">
+              <li>
+                <strong>Localisation des données :</strong> Les données transitent et sont stockées sur des serveurs sécurisés situés en Union Européenne (Irlande), garantissant le respect de la souveraineté européenne des données.
+              </li>
+              <li>
+                <strong>Conformité :</strong> Ce prestataire est conforme au RGPD et s'engage à ne pas revendre vos données.
+              </li>
+            </ul>
+            <p>
+              <strong>En savoir plus :</strong> Politique de confidentialité de Formspark : <a href="https://formspark.io/legal/privacy-policy/" target="_blank" rel="noopener noreferrer" className="text-corail-500 hover:underline">https://formspark.io/legal/privacy-policy/</a>
             </p>
           </section>
 
